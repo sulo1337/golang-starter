@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/sulo1337/cleanarch-go/internal/dto"
@@ -22,9 +23,13 @@ func NewPostService(store *store.Store) PostService {
 }
 
 func (s *postService) GetById(ctx context.Context, id uint64) (*dto.Post, error) {
-	panic("not yet implemented")
+	fmt.Println("postService::GetById called")
+	s.store.PostStore.GetById(1)
+	return nil, nil
 }
 
 func (s *postService) GetAllAfter(ctx context.Context, timestamp time.Time) ([]*dto.Post, error) {
-	panic("not yet implemented")
+	fmt.Println("postService::GetAllAfter called")
+	s.store.PostStore.GetAllAfter(time.Now())
+	return nil, nil
 }

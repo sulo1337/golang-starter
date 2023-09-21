@@ -1,8 +1,8 @@
 package store
 
 type Store struct {
-	userStore UserStore
-	postStore PostStore
+	UserStore UserStore
+	PostStore PostStore
 }
 
 func NewStore(
@@ -10,7 +10,7 @@ func NewStore(
 	postStore PostStore,
 ) *Store {
 	return &Store{
-		userStore: userStore,
-		postStore: postStore,
+		UserStore: userStore,
+		PostStore: postStore,
 	}
 }

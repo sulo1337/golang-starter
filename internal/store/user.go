@@ -1,6 +1,7 @@
 package store
 
 import (
+	"fmt"
 	"github.com/sulo1337/cleanarch-go/internal/domain"
 	"gorm.io/gorm"
 )
@@ -19,9 +20,11 @@ func NewUserStore(db *gorm.DB) UserStore {
 }
 
 func (s *userStore) GetById(id uint64) (*domain.User, error) {
-	panic("not yet implemented")
+	fmt.Println("userStore::GetById called")
+	return nil, nil
 }
 
 func (s *userStore) GetByUsername(username string) (*domain.User, error) {
-	panic("not yet implemented")
+	fmt.Println("userStore::GetByUsername called")
+	return nil, nil
 }

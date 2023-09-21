@@ -1,17 +1,28 @@
 package api
 
 import (
+	"fmt"
+	"github.com/sulo1337/cleanarch-go/internal/service"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 )
 
-func userRouter() http.Handler {
+type UserAPI struct {
+	s *service.Service
+}
+
+func NewUserAPI(s *service.Service) *UserAPI {
+	return &UserAPI{s: s}
+}
+
+func (u *UserAPI) userRouter() http.Handler {
 	r := chi.NewRouter()
-	r.Get("/{username}", getByUsername)
+	r.Get("/{username}", u.getByUsername)
 	return r
 }
 
-func getByUsername(w http.ResponseWriter, r *http.Request) {
-
+func (u *UserAPI) getByUsername(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("userRouter::getByUsername called")
+	u.s.UserService.GetByUsername(r.Context(), "")
 }

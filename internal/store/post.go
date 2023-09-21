@@ -1,6 +1,7 @@
 package store
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/sulo1337/cleanarch-go/internal/domain"
@@ -21,9 +22,11 @@ func NewPostStore(db *gorm.DB) PostStore {
 }
 
 func (s *postStore) GetById(id uint64) (*domain.Post, error) {
-	panic("not yet implemented")
+	fmt.Println("postStore::GetById called")
+	return nil, nil
 }
 
 func (s *postStore) GetAllAfter(timestamp time.Time) ([]*domain.Post, error) {
-	panic("not yet implemented")
+	fmt.Println("postStore::GetAllAfter called")
+	return nil, nil
 }

@@ -1,8 +1,8 @@
 package service
 
 type Service struct {
-	userService UserService
-	postService PostService
+	UserService UserService
+	PostService PostService
 }
 
 func NewService(
@@ -10,7 +10,7 @@ func NewService(
 	postService PostService,
 ) *Service {
 	return &Service{
-		userService: userService,
-		postService: postService,
+		UserService: userService,
+		PostService: postService,
 	}
 }

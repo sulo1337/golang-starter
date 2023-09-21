@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/sulo1337/cleanarch-go/internal/dto"
 	"github.com/sulo1337/cleanarch-go/internal/store"
@@ -21,9 +22,13 @@ func NewUserService(store *store.Store) UserService {
 }
 
 func (s *userService) GetById(ctx context.Context, id uint64) (*dto.User, error) {
-	panic("not yet implemented")
+	fmt.Println("userService::GetById called")
+	s.store.UserStore.GetById(id)
+	return nil, nil
 }
 
 func (s *userService) GetByUsername(ctx context.Context, username string) (*dto.User, error) {
-	panic("not yet implemented")
+	fmt.Println("userService::GetByUsername called")
+	s.store.UserStore.GetByUsername(username)
+	return nil, nil
 }

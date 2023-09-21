@@ -10,21 +10,27 @@ import (
 var prefix = "/api/v1"
 
 type API struct {
-	h http.Handler
-	s service.Service
+	h       http.Handler
+	postAPI *PostAPI
+	userAPI *UserAPI
 }
 
-func NewAPI(s service.Service) *API {
+func NewAPI(s *service.Service) *API {
+	api := &API{
+		postAPI: NewPostAPI(s),
+		userAPI: NewUserAPI(s),
+	}
 	r := chi.NewRouter()
-	
+
 	r.Route(prefix, func(r chi.Router) {
-		r.Mount("/users", userRouter())
-		r.Mount("/posts", postRouter())
+		r.Mount("/users", api.userAPI.userRouter())
+		r.Mount("/posts", api.postAPI.postRouter())
 	})
 
-	return &API{h: r, s: s}
+	api.h = r
+	return api
 }
 
-func (a API) GetBaseRouter() http.Handler {
+func (a *API) GetBaseRouter() http.Handler {
 	return a.h
 }
