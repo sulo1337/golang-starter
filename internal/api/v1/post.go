@@ -11,11 +11,11 @@ import (
 )
 
 type PostAPI struct {
-	s *service.Service
+	postService service.PostService
 }
 
-func NewPostAPI(s *service.Service) *PostAPI {
-	return &PostAPI{s: s}
+func NewPostAPI(s service.PostService) *PostAPI {
+	return &PostAPI{postService: s}
 }
 
 func (p *PostAPI) postRouter() http.Handler {
@@ -30,10 +30,10 @@ func (p *PostAPI) postRouter() http.Handler {
 
 func (p *PostAPI) getById(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("postRouter::getById called")
-	p.s.PostService.GetById(r.Context(), 1)
+	p.postService.GetById(r.Context(), 1)
 }
 
 func (p *PostAPI) getAllAfter(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("postRouter::getAllAfter called")
-	p.s.PostService.GetAllAfter(r.Context(), time.Now())
+	p.postService.GetAllAfter(r.Context(), time.Now())
 }

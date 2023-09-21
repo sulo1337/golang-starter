@@ -15,10 +15,13 @@ type API struct {
 	userAPI *UserAPI
 }
 
-func NewAPI(s *service.Service) *API {
+func NewAPI(
+	postService service.PostService,
+	userService service.UserService,
+) *API {
 	api := &API{
-		postAPI: NewPostAPI(s),
-		userAPI: NewUserAPI(s),
+		postAPI: NewPostAPI(postService),
+		userAPI: NewUserAPI(userService),
 	}
 	r := chi.NewRouter()
 

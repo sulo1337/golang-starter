@@ -9,11 +9,11 @@ import (
 )
 
 type UserAPI struct {
-	s *service.Service
+	userService service.UserService
 }
 
-func NewUserAPI(s *service.Service) *UserAPI {
-	return &UserAPI{s: s}
+func NewUserAPI(s service.UserService) *UserAPI {
+	return &UserAPI{userService: s}
 }
 
 func (u *UserAPI) userRouter() http.Handler {
@@ -24,5 +24,5 @@ func (u *UserAPI) userRouter() http.Handler {
 
 func (u *UserAPI) getByUsername(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("userRouter::getByUsername called")
-	u.s.UserService.GetByUsername(r.Context(), "")
+	u.userService.GetByUsername(r.Context(), "")
 }

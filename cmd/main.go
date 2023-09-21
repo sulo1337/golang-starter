@@ -19,8 +19,6 @@ func main() {
 			DB,
 			store.NewUserStore,
 			store.NewPostStore,
-			store.NewStore,
-			service.NewService,
 			service.NewPostService,
 			service.NewUserService,
 			apiv1.NewAPI,
