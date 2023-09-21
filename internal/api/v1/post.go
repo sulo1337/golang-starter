@@ -26,4 +26,5 @@ func (p *PostAPI) getById(w http.ResponseWriter, r *http.Request) {
 func (p *PostAPI) getAllAfter(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("postRouter::getAllAfter called")
 	p.postService.GetAllAfter(r.Context(), time.Now())
+	w.Write([]byte("getAllAfter"))
 }

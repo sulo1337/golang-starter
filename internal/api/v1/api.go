@@ -32,11 +32,11 @@ func NewAPI(
 	r := chi.NewRouter()
 
 	r.Use(api.middleware.RequestID)
+	r.Use(api.middleware.Logger)
 	r.Use(chiMiddleware.CleanPath)
 	r.Use(chiMiddleware.RequestID)
 	r.Use(chiMiddleware.RealIP)
 	r.Use(chiMiddleware.Recoverer)
-
 	setupRoutes(r, api)
 
 	api.h = r

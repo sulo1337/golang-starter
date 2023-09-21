@@ -15,6 +15,7 @@ var RequestIDHeader = "X-Request-ID"
 type Middleware interface {
 	RequestID(next http.Handler) http.Handler
 	Authenticated(next http.Handler) http.Handler
+	Logger(next http.Handler) http.Handler
 }
 
 type middleware struct {

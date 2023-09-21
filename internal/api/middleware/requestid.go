@@ -21,3 +21,13 @@ func (m middleware) RequestID(next http.Handler) http.Handler {
 	}
 	return http.HandlerFunc(fn)
 }
+
+func getReqID(ctx context.Context) string {
+	if ctx == nil {
+		return ""
+	}
+	if reqID, ok := ctx.Value(constants.CtxKeyRequestID).(string); ok {
+		return reqID
+	}
+	return ""
+}
