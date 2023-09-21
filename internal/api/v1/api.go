@@ -1,6 +1,8 @@
 package api
 
 import (
+	chiMiddleware "github.com/go-chi/chi/v5/middleware"
+	"github.com/sulo1337/cleanarch-go/internal/api/middleware"
 	"github.com/sulo1337/cleanarch-go/pkg/logger"
 	"net/http"
 
@@ -26,6 +28,12 @@ func NewAPI(
 		userAPI: NewUserAPI(logger, userService),
 	}
 	r := chi.NewRouter()
+
+	r.Use(middleware.RequestID)
+	r.Use(chiMiddleware.CleanPath)
+	r.Use(chiMiddleware.RequestID)
+	r.Use(chiMiddleware.RealIP)
+	r.Use(chiMiddleware.Recoverer)
 
 	r.Route(prefix, func(r chi.Router) {
 		r.Mount("/users", api.userAPI.userRouter())
