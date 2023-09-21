@@ -5,8 +5,6 @@ import (
 	"github.com/sulo1337/cleanarch-go/internal/service"
 	"log/slog"
 	"net/http"
-
-	"github.com/go-chi/chi/v5"
 )
 
 type UserAPI struct {
@@ -16,12 +14,6 @@ type UserAPI struct {
 
 func NewUserAPI(logger *slog.Logger, s service.UserService) *UserAPI {
 	return &UserAPI{logger: logger, userService: s}
-}
-
-func (u *UserAPI) userRouter() http.Handler {
-	r := chi.NewRouter()
-	r.Get("/{username}", u.getByUsername)
-	return r
 }
 
 func (u *UserAPI) getByUsername(w http.ResponseWriter, r *http.Request) {

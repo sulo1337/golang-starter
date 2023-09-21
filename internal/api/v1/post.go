@@ -2,13 +2,10 @@ package api
 
 import (
 	"fmt"
-	"github.com/sulo1337/cleanarch-go/internal/api/middleware"
 	"github.com/sulo1337/cleanarch-go/internal/service"
 	"log/slog"
 	"net/http"
 	"time"
-
-	"github.com/go-chi/chi/v5"
 )
 
 type PostAPI struct {
@@ -18,16 +15,6 @@ type PostAPI struct {
 
 func NewPostAPI(logger *slog.Logger, s service.PostService) *PostAPI {
 	return &PostAPI{logger: logger, postService: s}
-}
-
-func (p *PostAPI) postRouter() http.Handler {
-	r := chi.NewRouter()
-	r.Get("/{id}", p.getById)
-	r.Group(func(r chi.Router) {
-		r.Use(middleware.MustBeAuthenticated)
-		r.Get("/", p.getAllAfter)
-	})
-	return r
 }
 
 func (p *PostAPI) getById(w http.ResponseWriter, r *http.Request) {
