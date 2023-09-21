@@ -1,7 +1,6 @@
 package store
 
 import (
-	"fmt"
 	"github.com/sulo1337/cleanarch-go/internal/domain"
 	"gorm.io/gorm"
 	"log/slog"
@@ -22,11 +21,11 @@ func NewUserStore(logger *slog.Logger, db *gorm.DB) UserStore {
 }
 
 func (s *userStore) GetById(id uint64) (*domain.User, error) {
-	fmt.Println("userStore::GetById called")
+	s.logger.Debug("userStore::GetById")
 	return nil, nil
 }
 
 func (s *userStore) GetByUsername(username string) (*domain.User, error) {
-	fmt.Println("userStore::GetByUsername called")
+	s.logger.Debug("userStore::GetByUsername")
 	return nil, nil
 }

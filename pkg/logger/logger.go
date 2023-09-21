@@ -10,7 +10,7 @@ import (
 func NewLogger() *slog.Logger {
 	logger := slog.New(tint.NewHandler(os.Stdout, &tint.Options{
 		AddSource:   true,
-		Level:       slog.LevelDebug,
+		Level:       slog.LevelInfo,
 		ReplaceAttr: nil,
 		TimeFormat:  time.RFC3339,
 		NoColor:     false,

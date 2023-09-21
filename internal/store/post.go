@@ -1,7 +1,6 @@
 package store
 
 import (
-	"fmt"
 	"log/slog"
 	"time"
 
@@ -24,11 +23,11 @@ func NewPostStore(logger *slog.Logger, db *gorm.DB) PostStore {
 }
 
 func (s *postStore) GetById(id uint64) (*domain.Post, error) {
-	fmt.Println("postStore::GetById called")
+	s.logger.Debug("postStore::GetById")
 	return nil, nil
 }
 
 func (s *postStore) GetAllAfter(timestamp time.Time) ([]*domain.Post, error) {
-	fmt.Println("postStore::GetAllAfter called")
+	s.logger.Debug("postStore::GetAllAfter")
 	return nil, nil
 }

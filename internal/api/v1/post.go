@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"github.com/sulo1337/cleanarch-go/internal/service"
 	"log/slog"
 	"net/http"
@@ -18,13 +17,12 @@ func NewPostAPI(logger *slog.Logger, s service.PostService) *PostAPI {
 }
 
 func (p *PostAPI) getById(w http.ResponseWriter, r *http.Request) {
-	p.logger.Info("ctx: %v", r.Context())
-	fmt.Println("postRouter::getById called")
+	p.logger.Debug("postRouter::getById")
 	p.postService.GetById(r.Context(), 1)
 }
 
 func (p *PostAPI) getAllAfter(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("postRouter::getAllAfter called")
+	p.logger.Debug("postRouter::getAllAfter")
 	p.postService.GetAllAfter(r.Context(), time.Now())
 	w.Write([]byte("getAllAfter"))
 }
