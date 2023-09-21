@@ -3,18 +3,18 @@ package api
 import (
 	"fmt"
 	"github.com/sulo1337/cleanarch-go/internal/service"
-	"github.com/sulo1337/cleanarch-go/pkg/logger"
+	"log/slog"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 )
 
 type UserAPI struct {
-	logger      logger.Logger
+	logger      *slog.Logger
 	userService service.UserService
 }
 
-func NewUserAPI(logger logger.Logger, s service.UserService) *UserAPI {
+func NewUserAPI(logger *slog.Logger, s service.UserService) *UserAPI {
 	return &UserAPI{logger: logger, userService: s}
 }
 

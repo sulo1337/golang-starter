@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	"github.com/sulo1337/cleanarch-go/pkg/logger"
+	"log/slog"
 	"time"
 
 	"github.com/sulo1337/cleanarch-go/internal/dto"
@@ -17,11 +17,11 @@ type PostService interface {
 
 type postService struct {
 	postStore store.PostStore
-	logger    logger.Logger
+	logger    slog.Logger
 }
 
-func NewPostService(logger logger.Logger, postStore store.PostStore) PostService {
-	return &postService{logger: logger, postStore: postStore}
+func NewPostService(logger *slog.Logger, postStore store.PostStore) PostService {
+	return &postService{logger: *logger, postStore: postStore}
 }
 
 func (s *postService) GetById(ctx context.Context, id uint64) (*dto.Post, error) {

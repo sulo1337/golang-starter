@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	"github.com/sulo1337/cleanarch-go/pkg/logger"
+	"log/slog"
 
 	"github.com/sulo1337/cleanarch-go/internal/dto"
 	"github.com/sulo1337/cleanarch-go/internal/store"
@@ -16,10 +16,10 @@ type UserService interface {
 
 type userService struct {
 	userStore store.UserStore
-	logger    logger.Logger
+	logger    *slog.Logger
 }
 
-func NewUserService(logger logger.Logger, store store.UserStore) UserService {
+func NewUserService(logger *slog.Logger, store store.UserStore) UserService {
 	return &userService{logger: logger, userStore: store}
 }
 

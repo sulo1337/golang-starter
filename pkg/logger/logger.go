@@ -1,37 +1,19 @@
 package logger
 
-type Logger interface {
-	GetLevel() int
-
-	Infof(string, ...interface{})
-	Noticef(string, ...interface{})
-	Errorf(string, ...interface{})
-	Warnf(string, ...interface{})
-	Debugf(string, ...interface{})
-	Panicf(string, ...interface{})
-	Fatalf(string, ...interface{})
-
-	Info(...interface{})
-	Notice(...interface{})
-	Error(...interface{})
-	Warn(...interface{})
-	Debug(...interface{})
-	Panic(...interface{})
-	Fatal(...interface{})
-}
-
-type LoggingOptions struct {
-	Level      int
-	ShowTime   bool
-	ShowCaller bool
-}
-
-var (
-	Fatal  = 4
-	Panic  = 3
-	Error  = 2
-	Warn   = 1
-	Info   = 0
-	Notice = 0
-	Debug  = -1
+import (
+	"github.com/lmittmann/tint"
+	"log/slog"
+	"os"
+	"time"
 )
+
+func NewLogger() *slog.Logger {
+	logger := slog.New(tint.NewHandler(os.Stdout, &tint.Options{
+		AddSource:   true,
+		Level:       slog.LevelDebug,
+		ReplaceAttr: nil,
+		TimeFormat:  time.RFC3339,
+		NoColor:     false,
+	}))
+	return logger
+}

@@ -8,13 +8,15 @@ import (
 	"go.uber.org/fx"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"log/slog"
 	"net/http"
 )
 
 func main() {
 	fx.New(
+		fx.NopLogger,
 		fx.Provide(
-			Logger,
+			appLogger.NewLogger,
 			appLogger.NewGormLoggerAdapter,
 			DB,
 			store.NewUserStore,
@@ -23,22 +25,13 @@ func main() {
 			service.NewUserService,
 			apiv1.NewAPI,
 		),
-		fx.Invoke(func(logger appLogger.Logger, api *apiv1.API) {
-			logger.Info("started server on port 8080")
+		fx.Invoke(func(logger *slog.Logger, api *apiv1.API) {
+			logger.Info("server started", "port", "8080")
 			err := http.ListenAndServe(":8080", api.GetBaseRouter())
 			if err != nil {
-				logger.Fatal(err)
+				panic(err)
 			}
 		})).Run()
-}
-
-func Logger() appLogger.Logger {
-	logger := appLogger.NewColorLogger(appLogger.LoggingOptions{
-		Level:      appLogger.Info,
-		ShowTime:   true,
-		ShowCaller: true,
-	})
-	return logger
 }
 
 func DB(gormLoggerAdapter *appLogger.GormLoggerAdapter) *gorm.DB {

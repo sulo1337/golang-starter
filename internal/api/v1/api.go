@@ -3,7 +3,7 @@ package api
 import (
 	chiMiddleware "github.com/go-chi/chi/v5/middleware"
 	"github.com/sulo1337/cleanarch-go/internal/api/middleware"
-	"github.com/sulo1337/cleanarch-go/pkg/logger"
+	"log/slog"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -19,7 +19,7 @@ type API struct {
 }
 
 func NewAPI(
-	logger logger.Logger,
+	logger *slog.Logger,
 	postService service.PostService,
 	userService service.UserService,
 ) *API {
