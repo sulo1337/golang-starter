@@ -3,6 +3,7 @@ package store
 import (
 	"fmt"
 	"github.com/sulo1337/cleanarch-go/internal/domain"
+	"github.com/sulo1337/cleanarch-go/pkg/logger"
 	"gorm.io/gorm"
 )
 
@@ -12,11 +13,12 @@ type UserStore interface {
 }
 
 type userStore struct {
-	db *gorm.DB
+	logger logger.Logger
+	db     *gorm.DB
 }
 
-func NewUserStore(db *gorm.DB) UserStore {
-	return &userStore{db: db}
+func NewUserStore(logger logger.Logger, db *gorm.DB) UserStore {
+	return &userStore{logger: logger, db: db}
 }
 
 func (s *userStore) GetById(id uint64) (*domain.User, error) {

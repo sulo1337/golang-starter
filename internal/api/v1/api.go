@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/sulo1337/cleanarch-go/pkg/logger"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -16,12 +17,13 @@ type API struct {
 }
 
 func NewAPI(
+	logger logger.Logger,
 	postService service.PostService,
 	userService service.UserService,
 ) *API {
 	api := &API{
-		postAPI: NewPostAPI(postService),
-		userAPI: NewUserAPI(userService),
+		postAPI: NewPostAPI(logger, postService),
+		userAPI: NewUserAPI(logger, userService),
 	}
 	r := chi.NewRouter()
 

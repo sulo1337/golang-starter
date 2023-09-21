@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/sulo1337/cleanarch-go/internal/api/middleware"
 	"github.com/sulo1337/cleanarch-go/internal/service"
+	"github.com/sulo1337/cleanarch-go/pkg/logger"
 	"net/http"
 	"time"
 
@@ -11,11 +12,12 @@ import (
 )
 
 type PostAPI struct {
+	logger      logger.Logger
 	postService service.PostService
 }
 
-func NewPostAPI(s service.PostService) *PostAPI {
-	return &PostAPI{postService: s}
+func NewPostAPI(logger logger.Logger, s service.PostService) *PostAPI {
+	return &PostAPI{logger: logger, postService: s}
 }
 
 func (p *PostAPI) postRouter() http.Handler {
@@ -29,6 +31,7 @@ func (p *PostAPI) postRouter() http.Handler {
 }
 
 func (p *PostAPI) getById(w http.ResponseWriter, r *http.Request) {
+	p.logger.Infof("ctx: %v", r.Context())
 	fmt.Println("postRouter::getById called")
 	p.postService.GetById(r.Context(), 1)
 }

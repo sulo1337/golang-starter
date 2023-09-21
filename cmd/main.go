@@ -23,8 +23,12 @@ func main() {
 			service.NewUserService,
 			apiv1.NewAPI,
 		),
-		fx.Invoke(func(api *apiv1.API) {
-			http.ListenAndServe(":8080", api.GetBaseRouter())
+		fx.Invoke(func(logger appLogger.Logger, api *apiv1.API) {
+			logger.Info("started server on port 8080")
+			err := http.ListenAndServe(":8080", api.GetBaseRouter())
+			if err != nil {
+				logger.Fatal(err)
+			}
 		})).Run()
 }
 

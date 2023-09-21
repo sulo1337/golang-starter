@@ -3,17 +3,19 @@ package api
 import (
 	"fmt"
 	"github.com/sulo1337/cleanarch-go/internal/service"
+	"github.com/sulo1337/cleanarch-go/pkg/logger"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 )
 
 type UserAPI struct {
+	logger      logger.Logger
 	userService service.UserService
 }
 
-func NewUserAPI(s service.UserService) *UserAPI {
-	return &UserAPI{userService: s}
+func NewUserAPI(logger logger.Logger, s service.UserService) *UserAPI {
+	return &UserAPI{logger: logger, userService: s}
 }
 
 func (u *UserAPI) userRouter() http.Handler {
@@ -25,4 +27,5 @@ func (u *UserAPI) userRouter() http.Handler {
 func (u *UserAPI) getByUsername(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("userRouter::getByUsername called")
 	u.userService.GetByUsername(r.Context(), "")
+	panic("implement me")
 }

@@ -2,6 +2,7 @@ package store
 
 import (
 	"fmt"
+	"github.com/sulo1337/cleanarch-go/pkg/logger"
 	"time"
 
 	"github.com/sulo1337/cleanarch-go/internal/domain"
@@ -14,11 +15,12 @@ type PostStore interface {
 }
 
 type postStore struct {
-	db *gorm.DB
+	logger logger.Logger
+	db     *gorm.DB
 }
 
-func NewPostStore(db *gorm.DB) PostStore {
-	return &postStore{db: db}
+func NewPostStore(logger logger.Logger, db *gorm.DB) PostStore {
+	return &postStore{logger: logger, db: db}
 }
 
 func (s *postStore) GetById(id uint64) (*domain.Post, error) {
