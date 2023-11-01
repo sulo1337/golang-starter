@@ -1,4 +1,4 @@
-package api
+package v1
 
 import (
 	"github.com/sulo1337/cleanarch-go/internal/service"

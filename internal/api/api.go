@@ -3,6 +3,7 @@ package api
 import (
 	chiMiddleware "github.com/go-chi/chi/v5/middleware"
 	"github.com/sulo1337/cleanarch-go/internal/api/middleware"
+	v1 "github.com/sulo1337/cleanarch-go/internal/api/v1"
 	"log/slog"
 	"net/http"
 
@@ -10,13 +11,10 @@ import (
 	"github.com/sulo1337/cleanarch-go/internal/service"
 )
 
-var prefix = "/api/v1"
-
 type API struct {
 	h          http.Handler
 	middleware middleware.Middleware
-	postAPI    *PostAPI
-	userAPI    *UserAPI
+	v1         *v1.V1API
 }
 
 func NewAPI(
@@ -26,8 +24,6 @@ func NewAPI(
 ) *API {
 	api := &API{
 		middleware: middleware.NewMiddleware(logger),
-		postAPI:    NewPostAPI(logger, postService),
-		userAPI:    NewUserAPI(logger, userService),
 	}
 	r := chi.NewRouter()
 
@@ -36,24 +32,10 @@ func NewAPI(
 	r.Use(chiMiddleware.CleanPath)
 	r.Use(chiMiddleware.RealIP)
 	r.Use(chiMiddleware.Recoverer)
-	setupRoutes(r, api)
-
+	api.v1 = v1.NewV1API(logger, r, api.middleware, postService, userService)
 	api.h = r
 	return api
 }
-
-func setupRoutes(r *chi.Mux, api *API) chi.Router {
-	return r.Route(prefix, func(r chi.Router) {
-		r.Route("/users", func(r chi.Router) {
-			r.Get("/{username}", api.userAPI.getByUsername)
-		})
-		r.Route("/posts", func(r chi.Router) {
-			r.With(api.middleware.Authenticated).Get("/{id}", api.postAPI.getById)
-			r.Get("/", api.postAPI.getAllAfter)
-		})
-	})
-}
-
 func (a *API) GetBaseRouter() http.Handler {
 	return a.h
 }

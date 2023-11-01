@@ -1,7 +1,7 @@
 package main
 
 import (
-	apiv1 "github.com/sulo1337/cleanarch-go/internal/api/v1"
+	"github.com/sulo1337/cleanarch-go/internal/api"
 	"github.com/sulo1337/cleanarch-go/internal/service"
 	"github.com/sulo1337/cleanarch-go/internal/store"
 	appLogger "github.com/sulo1337/cleanarch-go/pkg/logger"
@@ -23,9 +23,9 @@ func main() {
 			store.NewPostStore,
 			service.NewPostService,
 			service.NewUserService,
-			apiv1.NewAPI,
+			api.NewAPI,
 		),
-		fx.Invoke(func(logger *slog.Logger, api *apiv1.API) {
+		fx.Invoke(func(logger *slog.Logger, api *api.API) {
 			logger.Info("server started", "port", "8080")
 			err := http.ListenAndServe(":8080", api.GetBaseRouter())
 			if err != nil {
