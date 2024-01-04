@@ -5,11 +5,11 @@ This project is a starter I use for new Golang projects. This project roughly de
 ## Architecture
 
 The code is structured into the following layers:
-**api** - layer for API routers, and handlers along with middlewares 
-**domain** - business entities
-**service** - business logic
-**dto** - data transfer models between layers
-**store** - repository layer for database/other service calls
+- **api** - layer for API routers, and handlers along with middlewares 
+- **domain** - business entities
+- **service** - business logic
+- **dto** - data transfer models between layers
+- **store** - repository layer for database/other service calls
 
 ## Features
 - Routing with [chi router](https://github.com/go-chi/chi) 
